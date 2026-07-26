@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en" id="html-root">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sleep Cycle Calculator</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg-1:#0a0e28; --bg-2:#12183f;
+    --card:rgba(255,255,255,0.045); --card-border:rgba(255,255,255,0.09);
+    --ink:#eae8f7; --ink-muted:#9498ba;
+    --gold:#f0c674; --gold-dim:rgba(240,198,116,0.35); --lav:#b6ade8;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:
+      radial-gradient(ellipse 60% 40% at 20% 0%, rgba(182,173,232,0.10), transparent 60%),
+      radial-gradient(ellipse 50% 40% at 85% 10%, rgba(240,198,116,0.07), transparent 60%),
+      linear-gradient(180deg, var(--bg-1), var(--bg-2) 55%, #0a0e28 100%);
+    color:var(--ink); font-family:'Manrope', sans-serif; min-height:100vh;
+  }
+  .wrap{max-width:880px; margin:0 auto; padding:56px 24px 80px; position:relative; z-index:1;}
+
+
+
+  nav{display:flex; align-items:center; justify-content:space-between; margin-bottom:48px;}
+  .brand{font-family:'Fraunces',serif; font-weight:700; font-size:20px; letter-spacing:-0.01em;}
+  .brand span{color:var(--gold);}
+  .lang-toggle{
+    display:flex; background:rgba(0,0,0,0.25); border-radius:10px; padding:4px; gap:2px;
+  }
+  .lang-toggle button{
+    border:none; background:transparent; color:var(--ink-muted);
+    font-family:'Manrope',sans-serif; font-weight:700; font-size:13px;
+    padding:7px 14px; border-radius:7px; cursor:pointer;
+  }
+  .lang-toggle button.active{background:var(--gold); color:#241a05;}
+
+  h1{
+    font-family:'Fraunces', serif; font-weight:600;
+    font-size:clamp(30px, 5vw, 46px); line-height:1.08; text-align:center; margin:0 0 12px;
+  }
+  .lede{color:var(--ink-muted); text-align:center; max-width:540px; margin:0 auto 44px; line-height:1.6;}
+
+  .panel{ background:var(--card); border:1px solid var(--card-border); border-radius:20px; padding:30px; margin-bottom:22px; }
+  .panel h2{ font-family:'Fraunces',serif; font-weight:600; font-size:21px; margin:0 0 20px; }
+
+  .picker-row{display:flex; gap:10px; align-items:center; flex-wrap:wrap;}
+  .picker-row select{
+    background:rgba(0,0,0,0.28); border:1px solid var(--card-border); color:var(--ink);
+    font-family:'Fraunces', serif; font-size:20px; font-weight:600; padding:11px 10px;
+    border-radius:10px; -webkit-appearance:none; appearance:none; text-align:center;
+  }
+  .picker-row select:focus{outline:none; box-shadow:0 0 0 2px var(--gold-dim);}
+  .colon{font-family:'Fraunces',serif; font-size:20px; color:var(--ink-muted);}
+
+  .row-bottom{display:flex; align-items:center; gap:18px; margin-top:20px; flex-wrap:wrap;}
+  .field-small{display:flex; align-items:center; gap:8px; color:var(--ink-muted); font-size:13px;}
+  .field-small input{
+    width:56px; background:rgba(0,0,0,0.28); border:1px solid var(--card-border);
+    color:var(--ink); border-radius:8px; padding:7px; font-family:'Manrope',sans-serif; text-align:center;
+  }
+
+  .btn{
+    background:var(--gold); color:#241a05; border:none; font-family:'Manrope',sans-serif;
+    font-weight:800; font-size:14.5px; padding:13px 24px; border-radius:11px; cursor:pointer; margin-left:auto;
+  }
+  .btn:hover{filter:brightness(1.05);}
+  .btn.ghost{ background:transparent; color:var(--lav); border:1px solid var(--card-border); margin-left:0; }
+  .btn:focus-visible{outline:2px solid var(--lav); outline-offset:2px;}
+
+  .sleep-now{ display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap; }
+  .sleep-now p{margin:0; color:var(--ink-muted); font-size:14px;}
+
+  .grid{ display:grid; grid-template-columns:repeat(auto-fit, minmax(170px, 1fr)); gap:12px; margin-top:8px; }
+  .opt{
+    position:relative; background:rgba(0,0,0,0.22); border:1px solid var(--card-border);
+    border-radius:14px; padding:18px; display:flex; flex-direction:column; align-items:center; gap:8px; text-align:center;
+  }
+  .opt.best{ border-color:var(--gold-dim); background:linear-gradient(180deg, rgba(240,198,116,0.10), rgba(0,0,0,0.22)); }
+  .badge{ position:absolute; top:-10px; background:var(--gold); color:#241a05; font-size:10.5px; font-weight:800; padding:3px 9px; border-radius:20px; }
+  .opt time{font-family:'Fraunces',serif; font-weight:700; font-size:23px;}
+  .opt .meta{font-size:12.5px; color:var(--ink-muted);}
+  .dial{width:48px; height:48px;}
+
+  .results-panel{display:none;}
+  .results-panel.show{display:block;}
+
+  table{width:100%; border-collapse:collapse; margin-top:6px;}
+  th,td{text-align:left; padding:11px 8px; font-size:14px; border-bottom:1px solid var(--card-border);}
+  th{color:var(--lav); font-weight:700; font-size:13px;}
+  td{color:var(--ink-muted);}
+  td:first-child, th:first-child{color:var(--ink); font-weight:600;}
+
+  .stages, .age-detail{display:grid; grid-template-columns:repeat(auto-fit, minmax(200px,1fr)); gap:14px;}
+  .stages .card, .age-detail .card{border:1px solid var(--card-border); border-radius:14px; padding:18px;}
+  .stages h3, .age-detail h3{font-family:'Fraunces',serif; font-weight:600; font-size:15.5px; margin:0 0 6px; color:var(--gold);}
+  .age-detail h3{color:var(--lav);}
+  .stages p, .age-detail p{margin:0; color:var(--ink-muted); font-size:13.5px; line-height:1.55;}
+  .age-detail .card .range{
+    display:inline-block; font-size:11.5px; font-weight:700; color:var(--gold);
+    background:rgba(240,198,116,0.1); padding:2px 8px; border-radius:20px; margin-bottom:8px;
+  }
+
+  footer{text-align:center; color:var(--ink-muted); font-size:12.5px; margin-top:50px; line-height:1.7;}
+
+  @media (max-width:520px){
+    .panel{padding:22px;}
+    .sleep-now{flex-direction:column; align-items:stretch;}
+    .btn{margin-left:0;}
+    nav{flex-direction:column; gap:14px; align-items:flex-start;}
+  }
+  #stars{position:fixed; inset:0; z-index:0; pointer-events:none;}
+</style>
+</head>
+<body>
+<canvas id="stars"></canvas>
+<div class="wrap">
+  <nav>
+    <div class="brand" data-i18n="brand">sleep<span>.cycle</span></div>
+    <div class="lang-toggle">
+      <button id="btn-en" class="active" onclick="setLang('en')">EN</button>
+      <button id="btn-el" onclick="setLang('el')">ΕΛ</button>
+    </div>
+  </nav>
+
+  <h1 data-i18n="h1">When should you go to sleep?</h1>
+  <p class="lede" data-i18n="lede">If you went to sleep right now, when should you wake up to feel refreshed? Science says 5 to 6 sleep cycles a night is the sweet spot.</p>
+
+  <div class="panel" id="panel-wake">
+    <h2 data-i18n="wakeHeading">I have to wake up at…</h2>
+    <div class="picker-row">
+      <select id="wake-h"></select>
+      <span class="colon">:</span>
+      <select id="wake-m"></select>
+      <select id="wake-ap"><option value="AM">AM</option><option value="PM">PM</option></select>
+    </div>
+    <div class="row-bottom">
+      <div class="field-small">
+        <label data-i18n="latencyLabel">minutes to fall asleep</label>
+        <input type="number" id="wake-latency" value="15" min="0" max="60">
+      </div>
+      <button class="btn" data-i18n="calcBtn" onclick="calcFromWake()">Calculate</button>
+    </div>
+  </div>
+
+  <div class="panel" id="panel-sleep">
+    <h2 data-i18n="sleepHeading">I will go to sleep at…</h2>
+    <div class="picker-row">
+      <select id="sleep-h"></select>
+      <span class="colon">:</span>
+      <select id="sleep-m"></select>
+      <select id="sleep-ap"><option value="AM">AM</option><option value="PM">PM</option></select>
+    </div>
+    <div class="row-bottom">
+      <div class="field-small">
+        <label data-i18n="latencyLabel">minutes to fall asleep</label>
+        <input type="number" id="sleep-latency" value="15" min="0" max="60">
+      </div>
+      <button class="btn" data-i18n="calcBtn" onclick="calcFromSleep()">Calculate</button>
+    </div>
+  </div>
+
+  <div class="panel sleep-now">
+    <p data-i18n="nowText">Going to bed right this moment?</p>
+    <button class="btn ghost" data-i18n="nowBtn" onclick="calcNow()">Sleep now</button>
+  </div>
+
+  <div class="panel results-panel" id="results">
+    <h2 id="results-title"></h2>
+    <div class="grid" id="grid"></div>
+    <button class="btn ghost" style="margin-top:18px" data-i18n="backBtn" onclick="closeResults()">← Back</button>
+  </div>
+
+  <div class="panel">
+    <h2 data-i18n="ageTableHeading">How much sleep do you need?</h2>
+    <table>
+      <tr>
+        <th data-i18n="colGroup">Age group</th>
+        <th data-i18n="colRange">Age range</th>
+        <th data-i18n="colHours">Recommended</th>
+      </tr>
+      <tbody id="age-table-body"></tbody>
+    </table>
+  </div>
+
+  <div class="panel">
+    <h2 data-i18n="stagesHeading">The stages of sleep</h2>
+    <div class="stages" id="stages-grid"></div>
+  </div>
+
+  <div class="panel">
+    <h2 data-i18n="ageDetailHeading">Sleep patterns by age, in detail</h2>
+    <p class="lede" style="margin:0 0 20px; text-align:left; max-width:none;" data-i18n="ageDetailLede">
+      Total hours needed is only part of the picture — how that sleep is spread across day and night changes a lot as we grow.
+    </p>
+    <div class="age-detail" id="age-detail-grid"></div>
+  </div>
+
+  <div class="panel">
+    <h2 data-i18n="howToHeading">How to use this calculator</h2>
+    <div class="stages" id="howto-grid"></div>
+  </div>
+
+  <div class="panel">
+    <h2 data-i18n="enoughHeading">Are you getting enough sleep?</h2>
+    <p class="lede" style="margin:0; text-align:left; max-width:none;" data-i18n="enoughBody"></p>
+  </div>
+
+  <div class="panel">
+    <h2 data-i18n="cycleHeading">How the cycle changes across the night</h2>
+    <p class="lede" style="margin:0; text-align:left; max-width:none;" data-i18n="cycleBody"></p>
+  </div>
+
+  <div class="panel">
+    <h2 data-i18n="sourcesHeading">Sources & further reading</h2>
+    <p class="lede" style="margin:0; text-align:left; max-width:none;" data-i18n="sourcesBody"></p>
+  </div>
+
+  <footer>
+    <div data-i18n="footer" style="margin-bottom:14px;">General guidance, not medical advice.</div>
+    <div style="display:flex; gap:18px; justify-content:center; flex-wrap:wrap;">
+      <a href="about-us.html" data-i18n="linkAbout" style="color:var(--ink-muted); text-decoration:none;">About Us</a>
+      <a href="terms-of-use.html" data-i18n="linkTerms" style="color:var(--ink-muted); text-decoration:none;">Terms of Use</a>
+      <a href="privacy-policy.html" data-i18n="linkPrivacy" style="color:var(--ink-muted); text-decoration:none;">Privacy Policy</a>
+      <a href="cookie-policy.html" data-i18n="linkCookies" style="color:var(--ink-muted); text-decoration:none;">Cookie Policy</a>
+    </div>
+  </footer>
+</div>
+
+<script>
+const I18N = {
+en: {
+  brand: 'sleep<span>.cycle</span>',
+  h1: 'When should you go to sleep?',
+  lede: 'If you went to sleep right now, when should you wake up to feel refreshed? Science says 5 to 6 sleep cycles a night is the sweet spot.',
+  wakeHeading: 'I have to wake up at…',
+  sleepHeading: 'I will go to sleep at…',
+  latencyLabel: 'minutes to fall asleep',
+  calcBtn: 'Calculate',
+  nowText: 'Going to bed right this moment?',
+  nowBtn: 'Sleep now',
+  backBtn: '← Back',
+  ageTableHeading: 'How much sleep do you need?',
+  colGroup: 'Age group', colRange: 'Age range', colHours: 'Recommended',
+  stagesHeading: 'The stages of sleep',
+  ageDetailHeading: 'Sleep patterns by age, in detail',
+  ageDetailLede: 'Total hours needed is only part of the picture — how that sleep is spread across day and night changes a lot as we grow.',
+  footer: 'General guidance, not medical advice.',
+  linkAbout: 'About Us',
+  linkTerms: 'Terms of Use',
+  linkPrivacy: 'Privacy Policy',
+  linkCookies: 'Cookie Policy',
+  resultsGoBed: 'Go to bed at these times:',
+  resultsWakeUp: 'Wake up at these times:',
+  cycles: 'cycles', hrs: 'h', best: 'Best',
+  ampm: {AM:'AM', PM:'PM'},
+  ageTable: [
+    ['Newborn','0–3 months','14–17 hours'],
+    ['Infant','4–12 months','12–16 hours'],
+    ['Toddler','1–2 years','11–14 hours'],
+    ['Preschool','3–5 years','10–13 hours'],
+    ['School age','6–12 years','9–12 hours'],
+    ['Teen','13–18 years','8–10 hours'],
+    ['Adult','18–64 years','7–9 hours'],
+    ['Older adult','65+ years','7–8 hours'],
+  ],
+  stages: [
+    ['Stage 1','The drift from wakefulness into sleep. Just a few minutes long, and easy to wake from.'],
+    ['Stage 2','Light sleep — heart rate slows and body temperature starts to drop.'],
+    ['Stage 3','Deep sleep. Hard to wake from; the body repairs tissue and builds immunity.'],
+    ['REM','The brain sorts memories and dreams happen here.'],
+  ],
+  ageDetail: [
+    ['0–3 months','Newborn','Sleeps 14–17 hours a day, but in short bursts of about 2–4 hours at a time, waking to feed around the clock — there is no real "night" yet.'],
+    ['4–12 months','Infant','Sleeps 12–16 hours total. Night sleep starts to consolidate into stretches of roughly 6–8 hours, plus two or three daytime naps.'],
+    ['1–2 years','Toddler','Sleeps 11–14 hours total, usually about 10–11 hours overnight plus one or two naps during the day.'],
+    ['3–5 years','Preschool','Sleeps 10–13 hours, mostly overnight, often with a single afternoon nap that fades out by age five.'],
+    ['6–12 years','School age','Sleeps 9–12 hours in one overnight stretch — naps are typically dropped by now.'],
+    ['13–18 years','Teen','Sleeps 8–10 hours, though the body clock naturally shifts later, making early mornings harder.'],
+    ['18–64 years','Adult','Sleeps 7–9 hours in a single nighttime block, ideally 5 to 6 full 90-minute cycles.'],
+    ['65+ years','Older adult','Sleeps 7–8 hours, often lighter and more broken up, with more early waking.'],
+  ],
+  howToHeading: 'How to use this calculator',
+  howTo: [
+    ['1. Know your wake-up time','Enter the time you need to be up, then hit Calculate — you\'ll get a set of bedtimes to choose from.'],
+    ['2. Know your bedtime','Enter the time you plan to go to sleep, then hit Calculate — you\'ll get a set of wake-up times instead.'],
+    ['3. Going to bed now','Skip the typing — tap Sleep now and the calculator works from the current time.'],
+  ],
+  enoughHeading: 'Are you getting enough sleep?',
+  enoughBody: 'It\'s easy to trade sleep for work, a late show, or one more scroll — but short sleep rarely stays a one-off. When it becomes routine, it\'s tied to a higher long-term risk of weight gain, high blood pressure, weakened mood and focus, and broader cardiovascular strain. None of that means a single late night is a disaster — it means treating sleep as a recurring habit worth protecting, not just something to catch up on later.',
+  cycleHeading: 'How the cycle changes across the night',
+  cycleBody: 'A typical night moves through four to six of these 90-minute cycles back to back. The early cycles lean heavily on deep, slow-wave sleep — the body\'s main repair window. As the night goes on, each cycle carries more REM and less deep sleep, and by the last cycle or two, deep sleep may barely feature at all. That\'s part of why waking near the end of a cycle, rather than in the middle of one, tends to feel so much less jarring.',
+  sourcesHeading: 'Sources & further reading',
+  sourcesBody: 'The recommendations above are broadly consistent with guidance from the National Sleep Foundation and the American Academy of Sleep Medicine, along with peer-reviewed research on sleep-stage physiology and REM/NREM cycling. This tool is meant as a general planning aid, not a substitute for professional medical advice.',
+},
+el: {
+  brand: 'κύκλος<span>.ύπνου</span>',
+  h1: 'Πότε πρέπει να κοιμηθείς;',
+  lede: 'Αν κοιμηθείς τώρα, πότε πρέπει να ξυπνήσεις για να νιώσεις ξεκούραστος; Η επιστήμη λέει πως 5 έως 6 κύκλοι ύπνου τη νύχτα είναι το ιδανικό.',
+  wakeHeading: 'Πρέπει να ξυπνήσω στις…',
+  sleepHeading: 'Θα κοιμηθώ στις…',
+  latencyLabel: 'λεπτά για ύπνο',
+  calcBtn: 'Υπολόγισε',
+  nowText: 'Θα πέσεις για ύπνο αυτή τη στιγμή;',
+  nowBtn: 'Κοιμήσου τώρα',
+  backBtn: '← Πίσω',
+  ageTableHeading: 'Πόσο ύπνο χρειάζεσαι;',
+  colGroup: 'Ηλικιακή ομάδα', colRange: 'Ηλικία', colHours: 'Συνιστώμενος ύπνος',
+  stagesHeading: 'Τα στάδια του ύπνου',
+  ageDetailHeading: 'Πρότυπα ύπνου ανά ηλικία, αναλυτικά',
+  ageDetailLede: 'Οι συνολικές ώρες είναι μόνο ένα κομμάτι — το πώς κατανέμεται ο ύπνος μέσα στη μέρα και τη νύχτα αλλάζει πολύ καθώς μεγαλώνουμε.',
+  footer: 'Γενική καθοδήγηση, όχι ιατρική συμβουλή.',
+  linkAbout: 'Σχετικά με εμάς',
+  linkTerms: 'Όροι Χρήσης',
+  linkPrivacy: 'Πολιτική Απορρήτου',
+  linkCookies: 'Πολιτική Cookies',
+  resultsGoBed: 'Πήγαινε για ύπνο στις:',
+  resultsWakeUp: 'Ξύπνα στις:',
+  cycles: 'κύκλοι', hrs: 'ώ.', best: 'Καλύτερο',
+  ampm: {AM:'ΠΜ', PM:'ΜΜ'},
+  ageTable: [
+    ['Νεογέννητο','0–3 μηνών','14–17 ώρες'],
+    ['Βρέφος','4–12 μηνών','12–16 ώρες'],
+    ['Νήπιο','1–2 ετών','11–14 ώρες'],
+    ['Προσχολική ηλικία','3–5 ετών','10–13 ώρες'],
+    ['Σχολική ηλικία','6–12 ετών','9–12 ώρες'],
+    ['Έφηβος','13–18 ετών','8–10 ώρες'],
+    ['Ενήλικας','18–64 ετών','7–9 ώρες'],
+    ['Μεγαλύτερος ενήλικας','65+ ετών','7–8 ώρες'],
+  ],
+  stages: [
+    ['Στάδιο 1','Η μετάβαση από την εγρήγορση στον ύπνο. Λίγα λεπτά, εύκολο να ξυπνήσεις.'],
+    ['Στάδιο 2','Ελαφρύς ύπνος — ο καρδιακός ρυθμός επιβραδύνεται και η θερμοκρασία του σώματος αρχίζει να πέφτει.'],
+    ['Στάδιο 3','Βαθύς ύπνος. Δύσκολο να ξυπνήσεις· το σώμα επιδιορθώνει ιστούς και ενισχύει το ανοσοποιητικό.'],
+    ['REM','Ο εγκέφαλος επεξεργάζεται μνήμες και εκεί εμφανίζονται τα όνειρα.'],
+  ],
+  ageDetail: [
+    ['0–3 μηνών','Νεογέννητο','Κοιμάται 14–17 ώρες τη μέρα, αλλά σε μικρά διαστήματα των 2–4 ωρών, ξυπνώντας για τάισμα όλο το 24ωρο — δεν υπάρχει ακόμα ξεχωριστή «νύχτα».'],
+    ['4–12 μηνών','Βρέφος','Κοιμάται συνολικά 12–16 ώρες. Ο νυχτερινός ύπνος αρχίζει να ενοποιείται σε διαστήματα περίπου 6–8 ωρών, μαζί με δύο-τρεις υπνάκους μέσα στη μέρα.'],
+    ['1–2 ετών','Νήπιο','Κοιμάται συνολικά 11–14 ώρες, συνήθως 10–11 ώρες το βράδυ συν έναν ή δύο υπνάκους την ημέρα.'],
+    ['3–5 ετών','Προσχολική ηλικία','Κοιμάται 10–13 ώρες, κυρίως το βράδυ, συχνά με έναν απογευματινό υπνάκο που σταδιακά χάνεται μέχρι τα 5.'],
+    ['6–12 ετών','Σχολική ηλικία','Κοιμάται 9–12 ώρες σε ένα ενιαίο νυχτερινό διάστημα — οι υπνάκοι συνήθως έχουν πλέον σταματήσει.'],
+    ['13–18 ετών','Έφηβος','Κοιμάται 8–10 ώρες, αν και το βιολογικό ρολόι μετατοπίζεται φυσιολογικά αργότερα, κάνοντας τα πρωινά πιο δύσκολα.'],
+    ['18–64 ετών','Ενήλικας','Κοιμάται 7–9 ώρες σε ένα νυχτερινό διάστημα, ιδανικά 5 έως 6 πλήρεις κύκλους των 90 λεπτών.'],
+    ['65+ ετών','Μεγαλύτερος ενήλικας','Κοιμάται 7–8 ώρες, συχνά πιο ελαφρύ και πιο κατακερματισμένο ύπνο, με περισσότερα πρωινά ξυπνήματα.'],
+  ],
+  howToHeading: 'Πώς να χρησιμοποιήσεις τον υπολογιστή',
+  howTo: [
+    ['1. Ξέρεις την ώρα αφύπνισης','Βάλε την ώρα που πρέπει να ξυπνήσεις και πάτα Υπολόγισε — θα δεις μια λίστα ωρών για ύπνο.'],
+    ['2. Ξέρεις την ώρα ύπνου','Βάλε την ώρα που σκοπεύεις να κοιμηθείς και πάτα Υπολόγισε — θα δεις αντίστοιχα ώρες αφύπνισης.'],
+    ['3. Πέφτεις για ύπνο τώρα','Χωρίς να πληκτρολογήσεις τίποτα — πάτα Κοιμήσου τώρα και ο υπολογισμός γίνεται από την τρέχουσα ώρα.'],
+  ],
+  enoughHeading: 'Κοιμάσαι αρκετά;',
+  enoughBody: 'Είναι εύκολο να «θυσιάζουμε» ύπνο για τη δουλειά, μια σειρά μέχρι αργά, ή λίγο ακόμα scroll — όμως ο λίγος ύπνος σπάνια μένει μεμονωμένο περιστατικό. Όταν γίνεται συνήθεια, συνδέεται με αυξημένο μακροπρόθεσμο κίνδυνο για αύξηση βάρους, υψηλή πίεση, χειρότερη διάθεση και συγκέντρωση, καθώς και γενικότερη επιβάρυνση του καρδιαγγειακού συστήματος. Αυτό δεν σημαίνει πως μία δύσκολη νύχτα είναι καταστροφή — σημαίνει απλώς να αντιμετωπίζεις τον ύπνο ως μια συνήθεια που αξίζει να προστατεύεις, όχι κάτι που αναπληρώνεις αργότερα.',
+  cycleHeading: 'Πώς αλλάζει ο κύκλος μέσα στη νύχτα',
+  cycleBody: 'Μια τυπική νύχτα περνάει μέσα από τέσσερις έως έξι τέτοιους κύκλους των 90 λεπτών, τον έναν μετά τον άλλο. Οι πρώτοι κύκλοι στηρίζονται κυρίως σε βαθύ ύπνο — το βασικό «παράθυρο» επιδιόρθωσης του σώματος. Καθώς προχωράει η νύχτα, κάθε κύκλος έχει περισσότερο REM και λιγότερο βαθύ ύπνο, και στους τελευταίους κύκλους ο βαθύς ύπνος μπορεί σχεδόν να λείπει εντελώς. Αυτός είναι κι ένας λόγος που το να ξυπνήσεις προς το τέλος ενός κύκλου, αντί στη μέση του, νιώθεται πολύ πιο ήπιο.',
+  sourcesHeading: 'Πηγές & περαιτέρω ανάγνωση',
+  sourcesBody: 'Οι παραπάνω συστάσεις είναι σε γενικές γραμμές συμβατές με την καθοδήγηση οργανισμών όπως το National Sleep Foundation και η American Academy of Sleep Medicine, καθώς και με επιστημονική βιβλιογραφία γύρω από τη φυσιολογία των σταδίων ύπνου και τον κύκλο REM/NREM. Το εργαλείο αυτό προορίζεται ως γενικός βοηθός προγραμματισμού, όχι υποκατάστατο ιατρικής συμβουλής.',
+}
+};
+
+let lang = 'en';
+
+function renderStatic(){
+  const t = I18N[lang];
+  document.querySelectorAll('[data-i18n]').forEach(el=>{
+    const key = el.getAttribute('data-i18n');
+    if(t[key] !== undefined) el.innerHTML = t[key];
+  });
+  // AM/PM option labels
+  document.querySelectorAll('#wake-ap, #sleep-ap').forEach(sel=>{
+    [...sel.options].forEach(opt=>{
+      opt.textContent = t.ampm[opt.value];
+    });
+  });
+  // age table
+  const tbody = document.getElementById('age-table-body');
+  tbody.innerHTML = t.ageTable.map(r => `<tr><td>${r[0]}</td><td>${r[1]}</td><td>${r[2]}</td></tr>`).join('');
+  // stages
+  document.getElementById('stages-grid').innerHTML = t.stages.map(s =>
+    `<div class="card"><h3>${s[0]}</h3><p>${s[1]}</p></div>`).join('');
+  // age detail
+  document.getElementById('age-detail-grid').innerHTML = t.ageDetail.map(a =>
+    `<div class="card"><span class="range">${a[0]}</span><h3>${a[1]}</h3><p>${a[2]}</p></div>`).join('');
+  // how-to steps
+  document.getElementById('howto-grid').innerHTML = t.howTo.map(s =>
+    `<div class="card"><h3>${s[0]}</h3><p>${s[1]}</p></div>`).join('');
+  document.getElementById('html-root').lang = lang;
+  document.getElementById('btn-en').classList.toggle('active', lang==='en');
+  document.getElementById('btn-el').classList.toggle('active', lang==='el');
+}
+
+function setLang(l){
+  lang = l;
+  renderStatic();
+  closeResults();
+}
+
+function fillSelect(id, count, pad){
+  const el = document.getElementById(id);
+  el.innerHTML = '';
+  for(let i=0;i<count;i++){
+    const v = pad ? String(i).padStart(2,'0') : (i===0?12:i);
+    const opt = document.createElement('option');
+    opt.value = pad ? i : v;
+    opt.textContent = v;
+    el.appendChild(opt);
+  }
+}
+['wake','sleep'].forEach(p=>{
+  fillSelect(p+'-h', 12, false);
+  fillSelect(p+'-m', 60, true);
+});
+document.getElementById('wake-h').value = 7;
+document.getElementById('sleep-h').value = 10;
+document.getElementById('sleep-ap').value = 'PM';
+
+function to24(h, ap){
+  h = parseInt(h,10);
+  if(ap === 'AM'){ return h===12 ? 0 : h; }
+  return h===12 ? 12 : h+12;
+}
+function fmt(d){ return d.toLocaleTimeString(lang==='el' ? 'el-GR' : 'en-US', {hour:'2-digit', minute:'2-digit'}); }
+
+function dialSVG(fraction, best){
+  const stroke = best ? '#f0c674' : '#b6ade8';
+  const r = 20, c = 2*Math.PI*r;
+  const offset = c * (1 - fraction);
+  return `<svg class="dial" viewBox="0 0 48 48">
+    <circle cx="24" cy="24" r="${r}" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="4"/>
+    <circle cx="24" cy="24" r="${r}" fill="none" stroke="${stroke}" stroke-width="4"
+      stroke-linecap="round" stroke-dasharray="${c}" stroke-dashoffset="${offset}"
+      transform="rotate(-90 24 24)"/>
+  </svg>`;
+}
+
+function renderResults(titleKey, list){
+  const t = I18N[lang];
+  document.getElementById('results-title').textContent = t[titleKey];
+  const grid = document.getElementById('grid');
+  grid.innerHTML = '';
+  list.forEach(item=>{
+    const hours = (item.cycles*1.5).toFixed(1).replace('.0','');
+    const best = item.cycles === 5 || item.cycles === 6;
+    const div = document.createElement('div');
+    div.className = 'opt' + (best ? ' best' : '');
+    div.innerHTML = `
+      ${best ? `<span class="badge">${t.best}</span>` : ''}
+      ${dialSVG(item.cycles/6, best)}
+      <time>${fmt(item.time)}</time>
+      <span class="meta">${item.cycles} ${t.cycles} · ${hours}${t.hrs}</span>`;
+    grid.appendChild(div);
+  });
+  document.getElementById('results').classList.add('show');
+  document.getElementById('results').scrollIntoView({behavior:'smooth', block:'nearest'});
+}
+function closeResults(){
+  document.getElementById('results').classList.remove('show');
+}
+// Always land on a clean initial screen -- guards against the browser
+// restoring a previous 'results shown' state (e.g. via back/forward cache).
+window.addEventListener('pageshow', function(){ closeResults(); });
+
+function calcFromWake(){
+  const h = to24(document.getElementById('wake-h').value, document.getElementById('wake-ap').value);
+  const m = parseInt(document.getElementById('wake-m').value,10);
+  const latency = parseInt(document.getElementById('wake-latency').value,10) || 0;
+  const anchor = new Date(); anchor.setHours(h,m,0,0);
+  const list = [6,5,4,3].map(c => ({time: new Date(anchor.getTime() - (c*90+latency)*60000), cycles:c}));
+  renderResults('resultsGoBed', list);
+}
+function calcFromSleep(){
+  const h = to24(document.getElementById('sleep-h').value, document.getElementById('sleep-ap').value);
+  const m = parseInt(document.getElementById('sleep-m').value,10);
+  const latency = parseInt(document.getElementById('sleep-latency').value,10) || 0;
+  const anchor = new Date(); anchor.setHours(h,m,0,0);
+  const list = [3,4,5,6].map(c => ({time: new Date(anchor.getTime() + (c*90+latency)*60000), cycles:c}));
+  renderResults('resultsWakeUp', list);
+}
+function calcNow(){
+  const latency = 15;
+  const anchor = new Date();
+  const list = [3,4,5,6].map(c => ({time: new Date(anchor.getTime() + (c*90+latency)*60000), cycles:c}));
+  renderResults('resultsWakeUp', list);
+}
+
+renderStatic();
+
+// --- starfield ---
+(function(){
+  const canvas = document.getElementById('stars');
+  const ctx = canvas.getContext('2d');
+  let stars = [];
+  function resize(){
+    canvas.width = window.innerWidth;
+    canvas.height = document.body.scrollHeight;
+    stars = Array.from({length: Math.floor((canvas.width*canvas.height)/22000)}, () => ({
+      x: Math.random()*canvas.width,
+      y: Math.random()*canvas.height,
+      r: Math.random()*1.3 + 0.2,
+      p: Math.random()*Math.PI*2,
+      s: Math.random()*0.02 + 0.005
+    }));
+  }
+  function draw(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    for(const st of stars){
+      st.p += st.s;
+      const a = 0.35 + 0.5*Math.abs(Math.sin(st.p));
+      ctx.beginPath();
+      ctx.arc(st.x, st.y, st.r, 0, Math.PI*2);
+      ctx.fillStyle = `rgba(234,232,247,${a})`;
+      ctx.fill();
+    }
+    requestAnimationFrame(draw);
+  }
+  window.addEventListener('resize', resize);
+  resize(); draw();
+})();
+</script>
+</body>
+</html>

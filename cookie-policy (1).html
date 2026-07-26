@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en" id="html-root">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cookie Policy — sleep.cycle</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg-1:#0a0e28; --bg-2:#12183f;
+    --card:rgba(255,255,255,0.045); --card-border:rgba(255,255,255,0.09);
+    --ink:#eae8f7; --ink-muted:#9498ba;
+    --gold:#f0c674; --gold-dim:rgba(240,198,116,0.35); --lav:#b6ade8;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:
+      radial-gradient(ellipse 60% 40% at 20% 0%, rgba(182,173,232,0.10), transparent 60%),
+      radial-gradient(ellipse 50% 40% at 85% 10%, rgba(240,198,116,0.07), transparent 60%),
+      linear-gradient(180deg, var(--bg-1), var(--bg-2) 55%, #0a0e28 100%);
+    color:var(--ink); font-family:'Manrope', sans-serif; min-height:100vh;
+  }
+  .wrap{max-width:760px; margin:0 auto; padding:56px 24px 80px; position:relative; z-index:1;}
+  nav{display:flex; align-items:center; justify-content:space-between; margin-bottom:40px;}
+  .brand{font-family:'Fraunces',serif; font-weight:700; font-size:20px; letter-spacing:-0.01em; text-decoration:none; color:var(--ink);}
+  .brand span{color:var(--gold);}
+  .lang-toggle{display:flex; background:rgba(0,0,0,0.25); border-radius:10px; padding:4px; gap:2px;}
+  .lang-toggle button{border:none; background:transparent; color:var(--ink-muted); font-family:'Manrope',sans-serif; font-weight:700; font-size:13px; padding:7px 14px; border-radius:7px; cursor:pointer;}
+  .lang-toggle button.active{background:var(--gold); color:#241a05;}
+  h1{font-family:'Fraunces', serif; font-weight:600; font-size:clamp(28px, 4.5vw, 42px); line-height:1.1; margin:0 0 8px;}
+  .lede{color:var(--ink-muted); margin:0 0 40px; line-height:1.6;}
+  .panel{background:var(--card); border:1px solid var(--card-border); border-radius:20px; padding:30px; margin-bottom:18px;}
+  .panel h2{font-family:'Fraunces',serif; font-weight:600; font-size:19px; margin:0 0 12px; color:var(--gold);}
+  .panel p{color:var(--ink-muted); line-height:1.7; font-size:15px; margin:0 0 14px;}
+  .panel p:last-child{margin-bottom:0;}
+  table{width:100%; border-collapse:collapse; margin-top:6px;}
+  th,td{text-align:left; padding:10px 8px; font-size:13.5px; border-bottom:1px solid var(--card-border); vertical-align:top;}
+  th{color:var(--lav); font-weight:700; font-size:12.5px;}
+  td{color:var(--ink-muted);}
+  td:first-child, th:first-child{color:var(--ink); font-weight:600; white-space:nowrap;}
+  .note{font-size:13px; color:var(--ink-muted); border-left:2px solid var(--gold-dim); padding-left:14px; margin-top:8px;}
+  .back-link{display:inline-block; margin-top:10px; color:var(--lav); font-size:14px; text-decoration:none;}
+  .back-link:hover{text-decoration:underline;}
+  @media (max-width:520px){ .panel{padding:22px;} nav{flex-direction:column; gap:14px; align-items:flex-start;} table{font-size:12px;} }
+
+  #stars{position:fixed; inset:0; z-index:0; pointer-events:none;}
+</style>
+</head>
+<body>
+<canvas id="stars"></canvas>
+<div class="wrap">
+  <nav>
+    <a class="brand" href="kyklos-ypnou-v3.html">sleep<span>.cycle</span></a>
+    <div class="lang-toggle">
+      <button id="btn-en" class="active" onclick="setLang('en')">EN</button>
+      <button id="btn-el" onclick="setLang('el')">ΕΛ</button>
+    </div>
+  </nav>
+
+  <h1 data-i18n="h1">Cookie Policy</h1>
+  <p class="lede" data-i18n="lede">What cookies are, and the very little use this site makes of them.</p>
+
+  <div id="sections"></div>
+
+  <div class="panel">
+    <h2 data-i18n="tableHeading">Cookie types at a glance</h2>
+    <table>
+      <tr><th data-i18n="colType">Type</th><th data-i18n="colPurpose">Purpose</th><th data-i18n="colUsed">Used here?</th></tr>
+      <tbody id="cookie-table-body"></tbody>
+    </table>
+  </div>
+
+  <div class="panel"><p class="note" data-i18n="disclaimer"></p></div>
+
+</div>
+
+<script>
+const I18N = {
+en: {
+  h1: 'Cookie Policy',
+  lede: 'What cookies are, and the very little use this site makes of them.',
+  back: '← Back to home',
+  tableHeading: 'Cookie types at a glance',
+  colType: 'Type', colPurpose: 'Purpose', colUsed: 'Used here?',
+  disclaimer: "This page is a general-purpose cookie policy template meant to show the usual structure and categories such a policy covers. It is not legal advice and should be matched to whatever cookies a site actually sets — including any analytics or advertising tools added later — before being published as a real policy.",
+  cookieTable: [
+    ['Strictly necessary', 'Let core features work, such as remembering a selected language or display setting.', 'Possibly — for the language toggle'],
+    ['Preference', 'Remember non-essential choices, like a preferred color theme.', 'Not currently'],
+    ['Analytics', 'Help understand how visitors use a site, in aggregate.', 'Not currently'],
+    ['Advertising', 'Track visitors across sites to show targeted ads.', 'Never used on this site'],
+  ],
+  sections: [
+    ['What are cookies?',
+      "Cookies are small text files that a website can ask your browser to store, then read back on later visits. They're normally used to remember things like a login session, a language preference, or how a visitor found a page. Some related technologies — like browser local storage — work similarly and are often covered by the same kind of policy."],
+    ['How this site uses cookies',
+      "sleep.cycle is built to work with as little stored data as possible. The calculator itself runs entirely in your browser and doesn't need cookies to compute bedtimes or wake-up times. If a language preference (English or Greek) is remembered between visits, that would be handled through a strictly necessary, functional cookie or an equivalent local storage entry — nothing beyond what's needed to keep your chosen language selected."],
+    ['Cookies we don\'t set',
+      "This site doesn't use advertising or cross-site tracking cookies, and currently doesn't run third-party analytics. If that ever changes, this policy would be updated first, and the cookie table below would reflect the new categories in use."],
+    ['Third-party cookies',
+      "Loading web fonts from Google Fonts may involve a request to Google's servers as part of displaying the site's typography. Google's own cookie and privacy practices apply to that request; we don't control what, if anything, is set as part of it."],
+    ['Managing cookies in your browser',
+      "Every modern browser lets you view, block, or delete cookies through its settings. Blocking all cookies may affect small conveniences on some sites, like a remembered language, but won't affect your ability to use the sleep calculator itself, since it works without cookies. Check your browser's help pages for the exact steps, as they vary between Chrome, Firefox, Safari, and Edge."],
+    ['Changes to this policy',
+      "If the cookies or similar technologies used on this site change — for example, if analytics are added later — this Cookie Policy would be updated to describe them, along with the date of that update."],
+    ['Contact',
+      "Questions about this Cookie Policy can be directed to the contact details listed on the Terms of Use page."],
+  ]
+},
+el: {
+  h1: 'Πολιτική Cookies',
+  lede: 'Τι είναι τα cookies, και πόσο λίγο τα χρησιμοποιεί αυτή η σελίδα.',
+  back: '← Πίσω στην αρχική',
+  tableHeading: 'Τύποι cookies με μια ματιά',
+  colType: 'Τύπος', colPurpose: 'Σκοπός', colUsed: 'Χρησιμοποιείται εδώ;',
+  disclaimer: "Αυτή η σελίδα είναι ένα γενικό υπόδειγμα πολιτικής cookies που δείχνει τη συνηθισμένη δομή και τις κατηγορίες που καλύπτει μια τέτοια πολιτική. Δεν αποτελεί νομική συμβουλή και θα πρέπει να ταιριάξει με όποια cookies πραγματικά ορίζει μια σελίδα —συμπεριλαμβανομένων τυχόν εργαλείων analytics ή διαφήμισης που θα προστεθούν αργότερα— πριν δημοσιευτεί ως πραγματική πολιτική.",
+  cookieTable: [
+    ['Απολύτως απαραίτητα', 'Επιτρέπουν βασικές λειτουργίες, όπως το να θυμάται τη γλώσσα ή μια ρύθμιση εμφάνισης.', 'Πιθανώς — για την εναλλαγή γλώσσας'],
+    ['Προτίμησης', 'Θυμούνται μη ουσιώδεις επιλογές, όπως ένα προτιμώμενο χρωματικό θέμα.', 'Όχι προς το παρόν'],
+    ['Analytics', 'Βοηθούν στην κατανόηση του πώς οι επισκέπτες χρησιμοποιούν μια σελίδα, συγκεντρωτικά.', 'Όχι προς το παρόν'],
+    ['Διαφημιστικά', 'Παρακολουθούν επισκέπτες σε διάφορες σελίδες για στοχευμένες διαφημίσεις.', 'Δεν χρησιμοποιούνται ποτέ σε αυτή τη σελίδα'],
+  ],
+  sections: [
+    ['Τι είναι τα cookies;',
+      "Τα cookies είναι μικρά αρχεία κειμένου που μια ιστοσελίδα μπορεί να ζητήσει από τον browser σου να αποθηκεύσει, και στη συνέχεια να τα διαβάσει σε επόμενες επισκέψεις. Συνήθως χρησιμοποιούνται για να θυμούνται πράγματα όπως μια σύνδεση, μια προτίμηση γλώσσας, ή το πώς ένας επισκέπτης βρήκε μια σελίδα. Κάποιες σχετικές τεχνολογίες —όπως το local storage του browser— λειτουργούν παρόμοια και συχνά καλύπτονται από το ίδιο είδος πολιτικής."],
+    ['Πώς χρησιμοποιεί τα cookies αυτή η σελίδα',
+      "Το sleep.cycle είναι φτιαγμένο ώστε να λειτουργεί με όσο το δυνατόν λιγότερα αποθηκευμένα δεδομένα. Ο ίδιος ο υπολογιστής τρέχει εξ ολοκλήρου στον browser σου και δεν χρειάζεται cookies για να υπολογίσει ώρες ύπνου ή αφύπνισης. Αν μια προτίμηση γλώσσας (Αγγλικά ή Ελληνικά) θυμάται ανάμεσα σε επισκέψεις, αυτό θα γινόταν μέσω ενός απολύτως απαραίτητου, λειτουργικού cookie ή αντίστοιχης καταχώρησης local storage — τίποτα παραπάνω από όσο χρειάζεται για να κρατηθεί η γλώσσα που επέλεξες."],
+    ['Cookies που δεν ορίζουμε',
+      "Αυτή η σελίδα δεν χρησιμοποιεί διαφημιστικά cookies ή cookies παρακολούθησης μεταξύ σελίδων, και προς το παρόν δεν τρέχει analytics τρίτων. Αν αυτό αλλάξει κάποια στιγμή, αυτή η πολιτική θα ενημερωνόταν πρώτα, και ο παρακάτω πίνακας θα αντικατόπτριζε τις νέες κατηγορίες σε χρήση."],
+    ['Cookies τρίτων',
+      "Η φόρτωση web fonts από το Google Fonts μπορεί να περιλαμβάνει αίτημα προς τους servers της Google ως μέρος της εμφάνισης της τυπογραφίας της σελίδας. Οι δικές της πρακτικές cookies και απορρήτου της Google ισχύουν για αυτό το αίτημα· εμείς δεν ελέγχουμε τι, αν κάτι, ορίζεται ως μέρος αυτού."],
+    ['Διαχείριση cookies στον browser σου',
+      "Κάθε σύγχρονος browser σού επιτρέπει να δεις, να μπλοκάρεις ή να διαγράψεις cookies μέσα από τις ρυθμίσεις του. Το μπλοκάρισμα όλων των cookies μπορεί να επηρεάσει μικρές ευκολίες σε ορισμένες σελίδες, όπως μια απομνημονευμένη γλώσσα, αλλά δεν επηρεάζει τη δυνατότητά σου να χρησιμοποιήσεις τον υπολογιστή ύπνου, αφού λειτουργεί χωρίς cookies. Δες τις σελίδες βοήθειας του browser σου για τα ακριβή βήματα, καθώς διαφέρουν μεταξύ Chrome, Firefox, Safari και Edge."],
+    ['Αλλαγές σε αυτή την πολιτική',
+      "Αν τα cookies ή παρόμοιες τεχνολογίες που χρησιμοποιούνται σε αυτή τη σελίδα αλλάξουν —για παράδειγμα, αν προστεθούν analytics αργότερα— αυτή η Πολιτική Cookies θα ενημερωνόταν ώστε να τα περιγράφει, μαζί με την ημερομηνία εκείνης της ενημέρωσης."],
+    ['Επικοινωνία',
+      "Ερωτήσεις σχετικά με αυτή την Πολιτική Cookies μπορούν να απευθύνονται στα στοιχεία επικοινωνίας που αναφέρονται στη σελίδα Όροι Χρήσης."],
+  ]
+}
+};
+
+let lang = 'en';
+function renderStatic(){
+  const t = I18N[lang];
+  document.querySelectorAll('[data-i18n]').forEach(el=>{
+    const key = el.getAttribute('data-i18n');
+    if(t[key] !== undefined) el.innerHTML = t[key];
+  });
+  document.getElementById('sections').innerHTML = t.sections.map(s =>
+    `<div class="panel"><h2>${s[0]}</h2><p>${s[1]}</p></div>`).join('');
+  document.getElementById('cookie-table-body').innerHTML = t.cookieTable.map(r =>
+    `<tr><td>${r[0]}</td><td>${r[1]}</td><td>${r[2]}</td></tr>`).join('');
+  document.getElementById('html-root').lang = lang;
+  document.getElementById('btn-en').classList.toggle('active', lang==='en');
+  document.getElementById('btn-el').classList.toggle('active', lang==='el');
+}
+function setLang(l){ lang = l; renderStatic(); }
+renderStatic();
+
+// --- starfield ---
+(function(){
+  const canvas = document.getElementById('stars');
+  const ctx = canvas.getContext('2d');
+  let stars = [];
+  function resize(){
+    canvas.width = window.innerWidth;
+    canvas.height = document.body.scrollHeight;
+    stars = Array.from({length: Math.floor((canvas.width*canvas.height)/22000)}, () => ({
+      x: Math.random()*canvas.width,
+      y: Math.random()*canvas.height,
+      r: Math.random()*1.3 + 0.2,
+      p: Math.random()*Math.PI*2,
+      s: Math.random()*0.02 + 0.005
+    }));
+  }
+  function draw(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    for(const st of stars){
+      st.p += st.s;
+      const a = 0.35 + 0.5*Math.abs(Math.sin(st.p));
+      ctx.beginPath();
+      ctx.arc(st.x, st.y, st.r, 0, Math.PI*2);
+      ctx.fillStyle = `rgba(234,232,247,${a})`;
+      ctx.fill();
+    }
+    requestAnimationFrame(draw);
+  }
+  window.addEventListener('resize', resize);
+  resize(); draw();
+})();
+</script>
+</body>
+</html>
