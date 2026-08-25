@@ -54,7 +54,8 @@
 <canvas id="stars"></canvas>
 <div class="wrap">
   <nav>
-    <a class="brand" href="kyklos-ypnou-v3.html">sleep<span>.cycle</span></a>
+    <!-- Διορθώθηκε το link του brand σε index.html -->
+    <a class="brand" href="index.html">sleep<span>.cycle</span></a>
     <div class="lang-toggle">
       <button id="btn-en" class="active" onclick="setLang('en')">EN</button>
       <button id="btn-el" onclick="setLang('el')">ΕΛ</button>
@@ -68,14 +69,14 @@
 
   <div class="panel"><p class="note" data-i18n="disclaimer"></p></div>
 
-  <!-- Προστέθηκε το back link -->
-  <a href="kyklos-ypnou-v3.html" class="back-link" data-i18n="back">← Back to home</a>
+  <!-- Διορθώθηκε το back link σε index.html -->
+  <a href="index.html" class="back-link" data-i18n="back">← Back to home</a>
 
-  <!-- Προστέθηκε το footer -->
+  <!-- Διορθώθηκαν τα links στο footer -->
   <footer>
-    <a href="kyklos-ypnou-v3.html">Home</a>
+    <a href="index.html">Home</a>
     <a href="about-us.html">About Us</a>
-    <a href="privacy.html">Privacy Policy</a>
+    <a href="privacy-policy.html">Privacy Policy</a>
   </footer>
 </div>
 
@@ -169,7 +170,6 @@ function setLang(l){
 
 renderStatic();
 
-// --- starfield ---
 (function(){
   const canvas = document.getElementById('stars');
   const ctx = canvas.getContext('2d');
