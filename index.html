@@ -246,9 +246,20 @@
     <div class="age-detail" id="age-detail-grid"></div>
   </div>
 
+  <!-- HOW TO USE THIS CALCULATOR SECTION -->
   <div class="panel">
     <h2 data-i18n="howToHeading">How to use this calculator</h2>
-    <div class="stages" id="howto-grid"></div>
+    
+    <h3 style="color:var(--gold); font-family:'Fraunces',serif; font-size:17px; margin:16px 0 6px;" data-i18n="howtoTitle1">1. Wake-up Target</h3>
+    <p class="lede" style="margin:0 0 14px; text-align:left; max-width:none; line-height:1.65;" data-i18n="howtoBody1"></p>
+
+    <h3 style="color:var(--gold); font-family:'Fraunces',serif; font-size:17px; margin:16px 0 6px;" data-i18n="howtoTitle2">2. Bedtime Target</h3>
+    <p class="lede" style="margin:0 0 14px; text-align:left; max-width:none; line-height:1.65;" data-i18n="howtoBody2"></p>
+
+    <h3 style="color:var(--gold); font-family:'Fraunces',serif; font-size:17px; margin:16px 0 6px;" data-i18n="howtoTitle3">3. Sleep Now</h3>
+    <p class="lede" style="margin:0 0 14px; text-align:left; max-width:none; line-height:1.65;" data-i18n="howtoBody3"></p>
+
+    <p class="lede" style="margin:0; text-align:left; max-width:none; line-height:1.65; font-style:italic;" data-i18n="howtoFooter"></p>
   </div>
 
   <!-- ARE YOU GETTING ENOUGH SLEEP SECTION -->
@@ -370,11 +381,13 @@ en: {
     ['65+ years','Older adult','Target is 7–8 hours. Sleep architecture tends to become lighter with more frequent nighttime awakenings.'],
   ],
   howToHeading: 'How to use this calculator',
-  howTo: [
-    ['1. Wake-up Target','Select your target wake-up time and click Calculate. The tool counts backward in 90-minute blocks to show ideal bedtimes.'],
-    ['2. Bedtime Target','Select when you plan to sleep. The tool adds sleep cycle increments to output the best wake-up times.'],
-    ['3. Sleep Now','If heading to bed immediately, tap Sleep Now to instantly calculate wake times based on the current time.'],
-  ],
+  howtoTitle1: '1. Wake-up Target',
+  howtoBody1: 'Select the time you would like to wake up and click Calculate. The calculator works backward using estimated sleep-cycle intervals to suggest several possible bedtimes. This can help you plan a consistent sleep schedule while allowing time to fall asleep.',
+  howtoTitle2: '2. Bedtime Target',
+  howtoBody2: 'If you already know when you want to go to bed, select your planned bedtime and click Calculate. The calculator works forward through estimated sleep cycles to provide suggested wake-up times, helping you compare different options for your morning schedule.',
+  howtoTitle3: '3. Sleep Now',
+  howtoBody3: 'If you are ready to go to bed right now, click Sleep Now. The calculator uses the current time and estimates when you could wake up after completing several sleep cycles, while also allowing for an average amount of time to fall asleep.',
+  howtoFooter: 'The results are general estimates based on typical sleep-cycle patterns. Actual sleep cycles vary between individuals and can change from night to night.',
   enoughHeading: 'Are you getting enough sleep?',
   enoughBody1: 'Getting enough sleep is essential for both physical and mental well-being. Regularly sleeping less than your body needs can affect concentration, memory, mood, reaction time, and daily energy levels.',
   enoughBody2: 'For most adults, getting fewer than 7 hours of sleep per night on a regular basis is generally considered insufficient. However, sleep needs vary depending on age and individual factors, with children and teenagers typically requiring more sleep.',
@@ -461,11 +474,13 @@ el: {
     ['65+ ετών','Μεγαλύτερος ενήλικας','Στόχος είναι οι 7–8 ώρες. Ο ύπνος γίνεται πιο ελαφρύς με συχνότερες νυχτερινές αφυπνίσεις.'],
   ],
   howToHeading: 'Πώς να χρησιμοποιήσεις τον υπολογιστή',
-  howTo: [
-    ['1. Ώρα Αφύπνισης','Επίλεξε την ώρα που πρέπει να ξυπνήσεις και πάτα Υπολόγισε. Το εργαλείο υπολογίζει προς τα πίσω διαστήματα 90 λεπτών.'],
-    ['2. Ώρα Ύπνου','Επίλεξε την ώρα που σκοπεύεις να κοιμηθείς. Το εργαλείο προσθέτει κύκλους ύπνου για να σου δείξει τις καλύτερες ώρες αφύπνισης.'],
-    ['3. Άμεσος Ύπνος','Αν πέφτεις στο κρεβάτι τώρα, πάτα Κοιμήσου Τώρα για άμεσο υπολογισμό με βάση την τρέχουσα ώρα.'],
-  ],
+  howtoTitle1: '1. Ώρα Αφύπνισης',
+  howtoBody1: 'Επίλεξε την ώρα που θα ήθελες να ξυπνήσεις και πάτα Υπολόγισε. Ο υπολογιστής λειτουργεί αντίστροφα χρησιμοποιώντας εκτιμώμενα διαστήματα κύκλων ύπνου για να προτείνει διάφορες πιθανές ώρες ύπνου. Αυτό μπορεί να σε βοηθήσει να προγραμματίσεις ένα σταθερό πρόγραμμα ύπνου, αφήνοντας παράλληλα χρόνο για να αποκοιμηθείς.',
+  howtoTitle2: '2. Ώρα Ύπνου',
+  howtoBody2: 'Αν γνωρίζεις ήδη πότε θέλεις να πας για ύπνο, επίλεξε την προγραμματισμένη ώρα σου και πάτα Υπολόγισε. Ο υπολογιστής προχωρά μπροστά μέσα από τους εκτιμώμενους κύκλους ύπνου για να παρέχει προτεινόμενες ώρες αφύπνισης, βοηθώντας σε να συγκρίνεις διαφορετικές επιλογές για το πρωινό σου πρόγραμμα.',
+  howtoTitle3: '3. Άμεσος Ύπνος',
+  howtoBody3: 'Αν είσαι έτοιμος να πας για ύπνο τώρα, πάτα Κοιμήσου Τώρα. Ο υπολογιστής χρησιμοποιεί την τρέχουσα ώρα και εκτιμά πότε θα μπορούσες να ξυπνήσεις αφού ολοκληρώσεις αρκετούς κύκλους ύπνου, λαμβάνοντας υπόψη και έναν μέσο όρο χρόνου για να σε πάρει ο ύπνος.',
+  howtoFooter: 'Τα αποτελέσματα είναι γενικές εκτιμήσεις που βασίζονται σε τυπικά μοτίβα κύκλων ύπνου. Οι πραγματικοί κύκλοι ύπνου διαφέρουν μεταξύ των ατόμων και μπορούν να αλλάζουν από νύχτα σε νύχτα.',
   enoughHeading: 'Κοιμάσαι αρκετά;',
   enoughBody1: 'Η επαρκής διάρκεια ύπνου είναι απαραίτητη τόσο για τη σωματική όσο και για τη ψυχική ευεξία. Ο ύπνος λιγότερος από αυτόν που χρειάζεται το σώμα σας σε τακτική βάση μπορεί να επηρεάσει τη συγκέντρωση, τη μνήμη, τη διάθεση, τον χρόνο αντίδρασης και τα καθημερινά επίπεδα ενέργειας.',
   enoughBody2: 'Για τους περισσότερους ενήλικες, ο ύπνος λιγότερος από 7 ώρες ανά νύχτα σε συστηματική βάση θεωρείται γενικά ανεπαρκής. Ωστόσο, οι ανάγκες ύπνου διαφέρουν ανάλογα με την ηλικία και ατομικούς παράγοντες, με τα παιδιά και τους εφήβους να απαιτούν συνήθως περισσότερο ύπνο.',
@@ -510,8 +525,6 @@ function renderStatic(){
     `<div class="card"><h3>${s[0]}</h3><p>${s[1]}</p></div>`).join('');
   document.getElementById('age-detail-grid').innerHTML = t.ageDetail.map(a =>
     `<div class="card"><span class="range">${a[0]}</span><h3>${a[1]}</h3><p>${a[2]}</p></div>`).join('');
-  document.getElementById('howto-grid').innerHTML = t.howTo.map(s =>
-    `<div class="card"><h3>${s[0]}</h3><p>${s[1]}</p></div>`).join('');
   document.getElementById('html-root').lang = lang;
   document.getElementById('btn-en').classList.toggle('active', lang==='en');
   document.getElementById('btn-el').classList.toggle('active', lang==='el');
