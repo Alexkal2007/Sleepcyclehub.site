@@ -45,8 +45,11 @@
   td{color:var(--ink-muted);}
   td:first-child, th:first-child{color:var(--ink); font-weight:600; white-space:nowrap;}
   .note{font-size:13px; color:var(--ink-muted); border-left:2px solid var(--gold-dim); padding-left:14px; margin-top:8px;}
-  .back-link{display:inline-block; margin-top:10px; color:var(--lav); font-size:14px; text-decoration:none;}
+  .back-link{display:inline-block; margin-top:20px; color:var(--lav); font-size:14px; text-decoration:none;}
   .back-link:hover{text-decoration:underline;}
+  footer{text-align:center; color:var(--ink-muted); font-size:12.5px; margin-top:44px; display:flex; gap:18px; justify-content:center; flex-wrap:wrap;}
+  footer a{color:var(--ink-muted); text-decoration:none;}
+  footer a:hover{color:var(--lav);}
   @media (max-width:520px){ .panel{padding:22px;} nav{flex-direction:column; gap:14px; align-items:flex-start;} table{font-size:12px;} }
 
   #stars{position:fixed; inset:0; z-index:0; pointer-events:none;}
@@ -64,7 +67,7 @@
   </nav>
 
   <h1 data-i18n="h1">Cookie Policy</h1>
-  <p class="lede" data-i18n="lede">What cookies are, and the very little use this site makes of them.</p>
+  <p class="lede" data-i18n="lede">What cookies are, and how this site uses them.</p>
 
   <div id="sections"></div>
 
@@ -78,66 +81,74 @@
 
   <div class="panel"><p class="note" data-i18n="disclaimer"></p></div>
 
+  <!-- Προστέθηκε το back link -->
+  <a href="kyklos-ypnou-v3.html" class="back-link" data-i18n="back">← Back to home</a>
+
+  <!-- Προστέθηκε το footer -->
+  <footer>
+    <a href="kyklos-ypnou-v3.html">Home</a>
+    <a href="about-us.html">About Us</a>
+    <a href="privacy-policy.html">Privacy Policy</a>
+    <a href="terms-of-use.html">Terms of Use</a>
+  </footer>
 </div>
 
 <script>
 const I18N = {
 en: {
+  title: 'Cookie Policy — sleep.cycle',
   h1: 'Cookie Policy',
-  lede: 'What cookies are, and the very little use this site makes of them.',
+  lede: 'What cookies are, and how this site uses them.',
   back: '← Back to home',
   tableHeading: 'Cookie types at a glance',
   colType: 'Type', colPurpose: 'Purpose', colUsed: 'Used here?',
   disclaimer: "This page is a general-purpose cookie policy template meant to show the usual structure and categories such a policy covers. It is not legal advice and should be matched to whatever cookies a site actually sets — including any analytics or advertising tools added later — before being published as a real policy.",
   cookieTable: [
-    ['Strictly necessary', 'Let core features work, such as remembering a selected language or display setting.', 'Possibly — for the language toggle'],
+    ['Strictly necessary', 'Let core features work, such as remembering a selected language or display setting.', 'Yes — for user preferences'],
     ['Preference', 'Remember non-essential choices, like a preferred color theme.', 'Not currently'],
     ['Analytics', 'Help understand how visitors use a site, in aggregate.', 'Not currently'],
-    ['Advertising', 'Track visitors across sites to show targeted ads.', 'Never used on this site'],
+    ['Advertising', 'Used by third-party ad networks (like Google AdSense) to serve relevant ads.', 'Yes — Google AdSense'],
   ],
   sections: [
     ['What are cookies?',
       "Cookies are small text files that a website can ask your browser to store, then read back on later visits. They're normally used to remember things like a login session, a language preference, or how a visitor found a page. Some related technologies — like browser local storage — work similarly and are often covered by the same kind of policy."],
     ['How this site uses cookies',
-      "sleep.cycle is built to work with as little stored data as possible. The calculator itself runs entirely in your browser and doesn't need cookies to compute bedtimes or wake-up times. If a language preference (English or Greek) is remembered between visits, that would be handled through a strictly necessary, functional cookie or an equivalent local storage entry — nothing beyond what's needed to keep your chosen language selected."],
-    ['Cookies we don\'t set',
-      "This site doesn't use advertising or cross-site tracking cookies, and currently doesn't run third-party analytics. If that ever changes, this policy would be updated first, and the cookie table below would reflect the new categories in use."],
-    ['Third-party cookies',
-      "Loading web fonts from Google Fonts may involve a request to Google's servers as part of displaying the site's typography. Google's own cookie and privacy practices apply to that request; we don't control what, if anything, is set as part of it."],
+      "sleep.cycle is built to work with minimal stored data. The sleep calculator itself runs entirely in your browser and doesn't need cookies to compute bedtimes or wake-up times. We use functional storage for your language preference (English or Greek) and allow third-party cookies for advertising."],
+    ['Advertising & Third-party cookies',
+      "This site uses Google AdSense to display advertisements. Google uses cookies to serve ads based on your prior visits to this or other websites. Loading web fonts from Google Fonts may also involve standard requests to Google servers."],
     ['Managing cookies in your browser',
-      "Every modern browser lets you view, block, or delete cookies through its settings. Blocking all cookies may affect small conveniences on some sites, like a remembered language, but won't affect your ability to use the sleep calculator itself, since it works without cookies. Check your browser's help pages for the exact steps, as they vary between Chrome, Firefox, Safari, and Edge."],
+      "Every modern browser lets you view, block, or delete cookies through its settings. Blocking all cookies may affect small conveniences like a remembered language, but won't affect your ability to use the sleep calculator itself. You can also opt out of personalized advertising by visiting Google Ad Settings."],
     ['Changes to this policy',
-      "If the cookies or similar technologies used on this site change — for example, if analytics are added later — this Cookie Policy would be updated to describe them, along with the date of that update."],
+      "If the cookies or similar technologies used on this site change — for example, if analytics are added later — this Cookie Policy will be updated to describe them."],
     ['Contact',
       "Questions about this Cookie Policy can be directed to the contact details listed on the Terms of Use page."],
   ]
 },
 el: {
+  title: 'Πολιτική Cookies — sleep.cycle',
   h1: 'Πολιτική Cookies',
-  lede: 'Τι είναι τα cookies, και πόσο λίγο τα χρησιμοποιεί αυτή η σελίδα.',
+  lede: 'Τι είναι τα cookies, και πώς τα χρησιμοποιεί αυτή η σελίδα.',
   back: '← Πίσω στην αρχική',
   tableHeading: 'Τύποι cookies με μια ματιά',
   colType: 'Τύπος', colPurpose: 'Σκοπός', colUsed: 'Χρησιμοποιείται εδώ;',
   disclaimer: "Αυτή η σελίδα είναι ένα γενικό υπόδειγμα πολιτικής cookies που δείχνει τη συνηθισμένη δομή και τις κατηγορίες που καλύπτει μια τέτοια πολιτική. Δεν αποτελεί νομική συμβουλή και θα πρέπει να ταιριάξει με όποια cookies πραγματικά ορίζει μια σελίδα —συμπεριλαμβανομένων τυχόν εργαλείων analytics ή διαφήμισης που θα προστεθούν αργότερα— πριν δημοσιευτεί ως πραγματική πολιτική.",
   cookieTable: [
-    ['Απολύτως απαραίτητα', 'Επιτρέπουν βασικές λειτουργίες, όπως το να θυμάται τη γλώσσα ή μια ρύθμιση εμφάνισης.', 'Πιθανώς — για την εναλλαγή γλώσσας'],
+    ['Απολύτως απαραίτητα', 'Επιτρέπουν βασικές λειτουργίες, όπως το να θυμάται τη γλώσσα ή μια ρύθμιση εμφάνισης.', 'Ναι — για την προτίμηση γλώσσας'],
     ['Προτίμησης', 'Θυμούνται μη ουσιώδεις επιλογές, όπως ένα προτιμώμενο χρωματικό θέμα.', 'Όχι προς το παρόν'],
     ['Analytics', 'Βοηθούν στην κατανόηση του πώς οι επισκέπτες χρησιμοποιούν μια σελίδα, συγκεντρωτικά.', 'Όχι προς το παρόν'],
-    ['Διαφημιστικά', 'Παρακολουθούν επισκέπτες σε διάφορες σελίδες για στοχευμένες διαφημίσεις.', 'Δεν χρησιμοποιούνται ποτέ σε αυτή τη σελίδα'],
+    ['Διαφημιστικά', 'Χρησιμοποιούνται από δίκτυα διαφήμισης (όπως το Google AdSense) για σχετικές διαφημίσεις.', 'Ναι — Google AdSense'],
   ],
   sections: [
     ['Τι είναι τα cookies;',
-      "Τα cookies είναι μικρά αρχεία κειμένου που μια ιστοσελίδα μπορεί να ζητήσει από τον browser σου να αποθηκεύσει, και στη συνέχεια να τα διαβάσει σε επόμενες επισκέψεις. Συνήθως χρησιμοποιούνται για να θυμούνται πράγματα όπως μια σύνδεση, μια προτίμηση γλώσσας, ή το πώς ένας επισκέπτης βρήκε μια σελίδα. Κάποιες σχετικές τεχνολογίες —όπως το local storage του browser— λειτουργούν παρόμοια και συχνά καλύπτονται από το ίδιο είδος πολιτικής."],
+      "Τα cookies είναι μικρά αρχεία κειμένου που μια ιστοσελίδα μπορεί να ζητήσει από τον browser σου να αποθηκεύσει, και στη συνέχεια να τα διαβάσει σε επόμενες επισκέψεις. Συνήθως χρησιμοποιούνται για να θυμούνται πράγματα όπως μια σύνδεση, μια προτίμηση γλώσσας, ή το πώς ένας επισκέπτης βρήκε μια σελίδα."],
     ['Πώς χρησιμοποιεί τα cookies αυτή η σελίδα',
-      "Το sleep.cycle είναι φτιαγμένο ώστε να λειτουργεί με όσο το δυνατόν λιγότερα αποθηκευμένα δεδομένα. Ο ίδιος ο υπολογιστής τρέχει εξ ολοκλήρου στον browser σου και δεν χρειάζεται cookies για να υπολογίσει ώρες ύπνου ή αφύπνισης. Αν μια προτίμηση γλώσσας (Αγγλικά ή Ελληνικά) θυμάται ανάμεσα σε επισκέψεις, αυτό θα γινόταν μέσω ενός απολύτως απαραίτητου, λειτουργικού cookie ή αντίστοιχης καταχώρησης local storage — τίποτα παραπάνω από όσο χρειάζεται για να κρατηθεί η γλώσσα που επέλεξες."],
-    ['Cookies που δεν ορίζουμε',
-      "Αυτή η σελίδα δεν χρησιμοποιεί διαφημιστικά cookies ή cookies παρακολούθησης μεταξύ σελίδων, και προς το παρόν δεν τρέχει analytics τρίτων. Αν αυτό αλλάξει κάποια στιγμή, αυτή η πολιτική θα ενημερωνόταν πρώτα, και ο παρακάτω πίνακας θα αντικατόπτριζε τις νέες κατηγορίες σε χρήση."],
-    ['Cookies τρίτων',
-      "Η φόρτωση web fonts από το Google Fonts μπορεί να περιλαμβάνει αίτημα προς τους servers της Google ως μέρος της εμφάνισης της τυπογραφίας της σελίδας. Οι δικές της πρακτικές cookies και απορρήτου της Google ισχύουν για αυτό το αίτημα· εμείς δεν ελέγχουμε τι, αν κάτι, ορίζεται ως μέρος αυτού."],
+      "Το sleep.cycle είναι φτιαγμένο ώστε να λειτουργεί με ελάχιστα αποθηκευμένα δεδομένα. Ο υπολογιστής ύπνου τρέχει εξ ολοκλήρου στον browser σου. Χρησιμοποιούμε λειτουργική αποθήκευση για τη γλώσσα (Αγγλικά/Ελληνικά) καθώς και cookies τρίτων για την προβολή διαφημίσεων."],
+    ['Διαφημίσεις & Cookies τρίτων',
+      "Αυτή η σελίδα χρησιμοποιεί το Google AdSense για την προβολή διαφημίσεων. Η Google χρησιμοποιεί cookies για την προβολή διαφημίσεων βάσει των προηγούμενων επισκέψεών σου. Η φόρτωση web fonts από το Google Fonts περιλαμβάνει επίσης τυπικές αιτήσεις προς τους servers της Google."],
     ['Διαχείριση cookies στον browser σου',
-      "Κάθε σύγχρονος browser σού επιτρέπει να δεις, να μπλοκάρεις ή να διαγράψεις cookies μέσα από τις ρυθμίσεις του. Το μπλοκάρισμα όλων των cookies μπορεί να επηρεάσει μικρές ευκολίες σε ορισμένες σελίδες, όπως μια απομνημονευμένη γλώσσα, αλλά δεν επηρεάζει τη δυνατότητά σου να χρησιμοποιήσεις τον υπολογιστή ύπνου, αφού λειτουργεί χωρίς cookies. Δες τις σελίδες βοήθειας του browser σου για τα ακριβή βήματα, καθώς διαφέρουν μεταξύ Chrome, Firefox, Safari και Edge."],
+      "Κάθε σύγχρονος browser σού επιτρέπει να δεις, να μπλοκάρεις ή να διαγράψεις cookies μέσα από τις ρυθμίσεις του. Μπορείς επίσης να απενεργοποιήσεις τις εξατομικευμένες διαφημίσεις μέσω των ρυθμίσεων διαφημίσεων της Google."],
     ['Αλλαγές σε αυτή την πολιτική',
-      "Αν τα cookies ή παρόμοιες τεχνολογίες που χρησιμοποιούνται σε αυτή τη σελίδα αλλάξουν —για παράδειγμα, αν προστεθούν analytics αργότερα— αυτή η Πολιτική Cookies θα ενημερωνόταν ώστε να τα περιγράφει, μαζί με την ημερομηνία εκείνης της ενημέρωσης."],
+      "Αν τα cookies ή παρόμοιες τεχνολογίες που χρησιμοποιούνται σε αυτή τη σελίδα αλλάξουν —για παράδειγμα, αν προστεθούν analytics αργότερα— αυτή η Πολιτική Cookies θα ενημερωθεί ώστε να τα περιγράφει."],
     ['Επικοινωνία',
       "Ερωτήσεις σχετικά με αυτή την Πολιτική Cookies μπορούν να απευθύνονται στα στοιχεία επικοινωνίας που αναφέρονται στη σελίδα Όροι Χρήσης."],
   ]
@@ -145,8 +156,10 @@ el: {
 };
 
 let lang = 'en';
+
 function renderStatic(){
   const t = I18N[lang];
+  document.title = t.title;
   document.querySelectorAll('[data-i18n]').forEach(el=>{
     const key = el.getAttribute('data-i18n');
     if(t[key] !== undefined) el.innerHTML = t[key];
@@ -159,7 +172,13 @@ function renderStatic(){
   document.getElementById('btn-en').classList.toggle('active', lang==='en');
   document.getElementById('btn-el').classList.toggle('active', lang==='el');
 }
-function setLang(l){ lang = l; renderStatic(); }
+
+function setLang(l){ 
+  lang = l; 
+  renderStatic(); 
+  if (typeof window.reRecalcCanvas === 'function') window.reRecalcCanvas();
+}
+
 renderStatic();
 
 // --- starfield ---
@@ -169,7 +188,7 @@ renderStatic();
   let stars = [];
   function resize(){
     canvas.width = window.innerWidth;
-    canvas.height = document.body.scrollHeight;
+    canvas.height = Math.max(document.body.scrollHeight, window.innerHeight);
     stars = Array.from({length: Math.floor((canvas.width*canvas.height)/22000)}, () => ({
       x: Math.random()*canvas.width,
       y: Math.random()*canvas.height,
@@ -178,6 +197,8 @@ renderStatic();
       s: Math.random()*0.02 + 0.005
     }));
   }
+  window.reRecalcCanvas = resize;
+
   function draw(){
     ctx.clearRect(0,0,canvas.width,canvas.height);
     for(const st of stars){
