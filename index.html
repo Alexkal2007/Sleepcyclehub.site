@@ -121,6 +121,8 @@
       background:rgba(240,198,116,0.1); padding:2px 8px; border-radius:20px; margin-bottom:8px;
     }
 
+    .note{font-size:13px; color:var(--ink-muted); border-left:2px solid var(--gold-dim); padding-left:14px; margin-top:16px;}
+
     footer{text-align:center; color:var(--ink-muted); font-size:13px; margin-top:60px; line-height:1.7; border-top:1px solid var(--card-border); padding-top:30px;}
     footer a{color:var(--ink-muted); text-decoration:none; transition:color 0.2s;}
     footer a:hover{color:var(--gold);}
@@ -139,7 +141,6 @@
 <canvas id="stars"></canvas>
 <div class="wrap">
   <nav>
-    <!-- Διορθώθηκε το link του brand σε index.html -->
     <a href="index.html" class="brand" data-i18n="brand">sleep<span>.cycle</span></a>
     <div class="nav-links">
       <a href="about-us.html" data-i18n="linkAbout">About Us</a>
@@ -253,9 +254,26 @@
     <p class="lede" style="margin:0; text-align:left; max-width:none;" data-i18n="cycleBody"></p>
   </div>
 
+  <!-- SOURCES & FURTHER READING SECTION -->
   <div class="panel">
-    <h2 data-i18n="sourcesHeading">Sources & further reading</h2>
-    <p class="lede" style="margin:0; text-align:left; max-width:none;" data-i18n="sourcesBody"></p>
+    <h2 data-i18n="sourcesHeading">Sources & Further Reading</h2>
+    <p style="color:var(--ink-muted); line-height:1.65; font-size:14.5px; margin:0 0 14px;" data-i18n="sourcesP1"></p>
+    <p style="color:var(--ink-muted); line-height:1.65; font-size:14.5px; margin:0 0 14px;" data-i18n="sourcesP2"></p>
+    <p style="color:var(--ink-muted); line-height:1.65; font-size:14.5px; margin:0 0 20px;" data-i18n="sourcesP3"></p>
+
+    <h3 style="color:var(--gold); font-family:'Fraunces',serif; font-size:17px; margin:0 0 12px;" data-i18n="recResourcesTitle">Recommended Resources</h3>
+    
+    <ul style="color:var(--ink-muted); line-height:1.7; font-size:14px; padding-left:20px; margin:0 0 20px;">
+      <li style="margin-bottom:8px;"><strong style="color:var(--ink);">Centers for Disease Control and Prevention (CDC):</strong> <span data-i18n="cdcDesc"></span></li>
+      <li style="margin-bottom:8px;"><strong style="color:var(--ink);">National Institutes of Health (NIH):</strong> <span data-i18n="nihDesc"></span></li>
+      <li style="margin-bottom:8px;"><strong style="color:var(--ink);">American Academy of Sleep Medicine (AASM):</strong> <span data-i18n="aasmDesc"></span></li>
+      <li style="margin-bottom:8px;"><strong style="color:var(--ink);">National Sleep Foundation:</strong> <span data-i18n="nsfDesc"></span></li>
+    </ul>
+
+    <div class="note">
+      <p style="margin:0 0 8px;" data-i18n="sourcesDisclaimer1"></p>
+      <p style="margin:0;" data-i18n="sourcesDisclaimer2"></p>
+    </div>
   </div>
 
   <footer>
@@ -338,8 +356,17 @@ en: {
   enoughBody: 'Chronic sleep deprivation extends beyond feeling tired. Consistently getting fewer than 7 hours per night increases long-term risks of hypertension, cardiovascular strain, metabolic disruption, reduced cognitive performance, and mood instability. While an occasional late night is natural, prioritizing structured sleep schedules acts as a cornerstone for immune resilience, mental clarity, and longevity.',
   cycleHeading: 'How the cycle changes across the night',
   cycleBody: 'Human sleep progresses through consecutive 90-minute cycles containing non-REM (N1, N2, N3) and REM stages. Earlier night cycles prioritize Stage 3 deep slow-wave sleep for physical repair. As the night progresses into morning, REM sleep stages expand, assisting cognitive processing and memory consolidation. Waking up at the end of a cycle avoids sleep inertia.',
-  sourcesHeading: 'Sources & further reading',
-  sourcesBody: 'Guidance and recommendations presented on this site align with research from the National Sleep Foundation, the American Academy of Sleep Medicine (AASM), and peer-reviewed studies on sleep physiology. This platform provides educational insights and planning assistance.',
+  sourcesHeading: 'Sources & Further Reading',
+  sourcesP1: 'The information on SleepCycleHub is based on established sleep research and recommendations from recognized health and scientific organizations. Sleep is a complex biological process, and individual sleep needs can vary depending on age, lifestyle, health, and other personal factors.',
+  sourcesP2: 'For further reading and more detailed information about sleep duration, sleep cycles, sleep stages, and healthy sleep habits, we recommend consulting trusted sources such as the National Sleep Foundation, the American Academy of Sleep Medicine, the Centers for Disease Control and Prevention (CDC), and the National Institutes of Health (NIH).',
+  sourcesP3: 'These resources provide evidence-based information about sleep health, recommended sleep duration, sleep quality, circadian rhythms, and factors that can affect healthy sleep patterns.',
+  recResourcesTitle: 'Recommended Resources',
+  cdcDesc: 'Information about recommended sleep duration, sleep health, and healthy sleep habits.',
+  nihDesc: 'Research and educational resources covering sleep, sleep disorders, and the science of sleep.',
+  aasmDesc: 'Professional guidance and evidence-based information about sleep health and sleep medicine.',
+  nsfDesc: 'Educational resources covering sleep duration, sleep quality, sleep cycles, and healthy sleep practices.',
+  sourcesDisclaimer1: "The SleepCycleHub calculator is designed as an educational tool to help users understand sleep timing and sleep cycles. The suggested times are estimates based on general sleep-cycle principles and should not be considered medical advice or a substitute for advice from a qualified healthcare professional.",
+  sourcesDisclaimer2: "Because sleep needs and sleep patterns differ from person to person, users should consider their individual circumstances when interpreting the calculator's results.",
 },
 el: {
   title: 'Υπολογιστής Κύκλου Ύπνου | Βελτιστοποίησε τον Ύπνο σου',
@@ -407,8 +434,17 @@ el: {
   enoughBody: 'Η χρόνια έλλειψη ύπνου δεν προκαλεί απλώς κούραση. Ο ύπνος λιγότερος από 7 ώρες συστηματικά αυξάνει τον μακροπρόθεσμο κίνδυνο για υπέρταση, καρδιαγγειακή καταπόνηση, διαταραχές μεταβολισμού και μειωμένη συγκέντρωση. Η διατήρηση ενός σταθερού προγράμματος ύπνου αποτελεί θεμέλιο για την υγεία.',
   cycleHeading: 'Πώς αλλάζει ο κύκλος μέσα στη νύχτα',
   cycleBody: 'Ο ανθρώπινος ύπνος εξελίσσεται σε διαδοχικούς κύκλους 90 λεπτών που αποτελούνται από στάδια non-REM και REM. Στους πρώτους κύκλους κυριαρχεί ο βαθύς ύπνος (Στάδιο 3) για τη σωματική αποκατάσταση. Προς το πρωί, αυξάνονται τα στάδια REM που ενισχύουν τη μνήμη. Το ξύπνημα στο τέλος ενός κύκλου αποτρέπει την πρωινή ζάλη.',
-  sourcesHeading: 'Πηγές & περαιτέρω ανάγνωση',
-  sourcesBody: 'Οι πληροφορίες και οι συστάσεις της ιστοσελίδας είναι εναρμονισμένες με έρευνες του National Sleep Foundation και της American Academy of Sleep Medicine. Η πλατφόρμα παρέχει εκπαιδευτική ενημέρωση.',
+  sourcesHeading: 'Πηγές & Περαιτέρω Μελέτη',
+  sourcesP1: 'Οι πληροφορίες στο SleepCycleHub βασίζονται σε αναγνωρισμένη έρευνα για τον ύπνο και συστάσεις από επιστημονικούς οργανισμούς υγείας. Ο ύπνος είναι μια σύνθετη βιολογική διαδικασία και οι ατομικές ανάγκες ποικίλλουν ανάλογα με την ηλικία, τον τρόπο ζωής και την υγεία.',
+  sourcesP2: 'Για περισσότερες πληροφορίες σχετικά με τη διάρκεια, τους κύκλους και τα στάδια του ύπνου, συνιστούμε τη συμβουλή έγκυρων οργανισμών όπως το National Sleep Foundation, η American Academy of Sleep Medicine, το CDC και το NIH.',
+  sourcesP3: 'Αυτές οι πηγές παρέχουν επιστημονικά τεκμηριωμένες πληροφορίες για την υγεία του ύπνου, την ποιότητα, τους κιρκάδιους ρυθμούς και τους παράγοντες που επηρεάζουν τον ύπνο.',
+  recResourcesTitle: 'Προτεινόμενοι Οργανισμοί',
+  cdcDesc: 'Πληροφορίες σχετικά με τη συνιστώμενη διάρκεια ύπνου και τις υγιεινές συνήθειες ύπνου.',
+  nihDesc: 'Ερευνητικοί και εκπαιδευτικοί πόροι για τον ύπνο, τις διαταραχές ύπνου και την επιστήμη του ύπνου.',
+  aasmDesc: 'Επαγγελματική καθοδήγηση και επιστημονικές πληροφορίες για την ιατρική του ύπνου.',
+  nsfDesc: 'Εκπαιδευτικό υλικό για τη διάρκεια, την ποιότητα, τους κύκλους και τις πρακτικές ύπνου.',
+  sourcesDisclaimer1: "Ο υπολογιστής του SleepCycleHub σχεδιάστηκε ως εκπαιδευτικό εργαλείο. Οι προτεινόμενοι χρόνοι είναι εκτιμήσεις και δεν αποτελούν ιατρική συμβουλή ή αντικατάστατο εξειδικευμένου επαγγελματία υγείας.",
+  sourcesDisclaimer2: "Επειδή οι ανάγκες ύπνου διαφέρουν από άνθρωπο σε άνθρωπο, οι χρήστες θα πρέπει να λαμβάνουν υπόψη τις προσωπικές τους συνθήκες κατά την αξιολόγηση των αποτελεσμάτων.",
 }
 };
 
